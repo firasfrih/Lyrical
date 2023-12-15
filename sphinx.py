@@ -1,3 +1,5 @@
+#pip install SpeechRecognition
+#pip install pocketsphinx
 import speech_recognition as sr
 
 def sphinx_recognize_lyrics(audio_file_path):

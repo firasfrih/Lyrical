@@ -5,7 +5,7 @@ from tkinter import Tk, filedialog
 def choose_file():
     root = Tk()
     root.withdraw()  # Hide the main window
-    file_path = filedialog.askopenfilename(title="Choose a File", filetypes=[("mp3 files", "*.mp3")])
+    file_path = filedialog.askopenfilename(title="Choose a File", filetypes=[("wav files", "*.wav")])
     return file_path
 
 def choose_folder():

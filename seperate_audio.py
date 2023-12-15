@@ -1,3 +1,4 @@
+#pip install pydub   
 from pydub import AudioSegment
 import os
 from tkinter import Tk, filedialog

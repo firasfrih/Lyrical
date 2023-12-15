@@ -1,3 +1,4 @@
+#pip install pygame
 import pygame, sys , threading , time
 from class_button import Button
 from pygame.locals import *
