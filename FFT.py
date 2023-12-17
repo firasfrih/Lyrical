@@ -1,10 +1,5 @@
-#pip install soundfile
-#pip install librosa
-import soundfile as sf
-import librosa
-import librosa.display
 import numpy as np
-import matplotlib.pyplot as plt
+from scipy.io import wavfile
 from tkinter import Tk, filedialog
 
 def choose_file():
@@ -19,36 +14,41 @@ def choose_folder():
     folder_path = filedialog.askdirectory(title="Choose Output Folder")
     return folder_path
 
-def preprocess_audio():
-    # Choose an audio file using the filedialog
-    file_path = choose_file()
-    if not file_path:
-        print("No file selected. Exiting.")
-        return
+def FFT(input_file, output_file, window_size=4096, hop_size=2048, threshold=1000):
+    # Read audio file
+    fs, audio_data = wavfile.read(input_file)
 
-    # Choose an output folder using the filedialog
-    output_folder = choose_folder()
-    if not output_folder:
-        print("No output folder selected. Exiting.")
-        return
+    # Create synthetic signal
+    dt = 1.0 / fs
+    t = np.arange(0, len(audio_data) * dt, dt)
+    signal = audio_data.astype(float)  # Convert to float for FFT
 
-    # Load the audio file
-    y, sr = librosa.load(file_path)
+    # Compute Fourier Transform using windowing
+    n = len(t)
+    denoised_signal = np.zeros_like(signal)
 
-    # Compute the short-time Fourier transform (STFT)
-    D = librosa.stft(y)
+    for i in range(0, n - window_size, hop_size):
+        windowed_signal = signal[i:i + window_size]
+        fhat = np.fft.fft(windowed_signal, window_size)
+        psd = fhat * np.conj(fhat) / window_size
+        freq = (1 / (dt * window_size)) * np.arange(window_size)
+        idxs_half = np.arange(1, int(window_size / 2)).astype(int)
 
-    # Apply some noise reduction technique (e.g., thresholding)
-    # You might need to experiment with the parameters to find the right balance
-    threshold = 0.02
-    D_filtered = D * (np.abs(D) >= threshold * np.max(np.abs(D)))
+        # Identify and remove noise by thresholding
+        psd[idxs_half[psd[idxs_half] < threshold]] = 0
 
-    # Inverse STFT to obtain the denoised signal
-    y_denoised = librosa.istft(D_filtered)
+        # Inverse FFT to obtain the denoised signal segment
+        denoised_segment = np.fft.ifft(psd).real
+        denoised_signal[i:i + hop_size] += denoised_segment[:hop_size]
 
-    # Save the denoised audio to a new file in the specified output folder
-    output_path = f"{output_folder}/output_denoised.wav"
-    sf.write(output_path, y_denoised, sr)
+    # Save denoised signal to a new audio file
+    denoised_signal = denoised_signal.astype(np.int16)
+    wavfile.write(output_file, fs, denoised_signal)
 
-# Run the preprocessing function
-preprocess_audio()
+# Example usage
+input_audio_file = choose_file()
+if input_audio_file:
+    output_denoised_file = choose_folder() + "/denoised_audio.wav"
+    print("Processing...")
+    FFT(input_audio_file, output_denoised_file)
+    print("Denoising completed.")
