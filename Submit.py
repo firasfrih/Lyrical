@@ -4,7 +4,7 @@ from Found_Song import display_lyrics
 
 
 def submit(song_title):
-    client_access_token = "_hkQOWY190XI6XFLZ5cTpaGTQtwGmH9g5IZg6c-rDGY-5IcmOxhlLCP4knP4790c"
+    client_access_token = 'API_KEY_HERE'  # Replace 'API_KEY_HERE' with actual API key
     genius = lg.Genius(client_access_token)
     song = genius.search_song(song_title)
     if song is None:

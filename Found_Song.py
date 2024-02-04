@@ -18,8 +18,8 @@ def display_lyrics(lyrics_text):
     TEXT_COLOR = (0, 0, 0)   # Black text color
     Button_sound_sfx = pygame.mixer.Sound("assets/Nextbutton.wav")
     Quit_sound_sfx = pygame.mixer.Sound("assets/Quitbutton.wav")
-    font = pygame.font.Font("assets/font.ttf", 11)  # Font for displaying lyrics
-    lines = lyrics_text.split('\n') # Split lyrics into lines
+    font = pygame.font.Font("assets/font.ttf", 11)
+    lines = lyrics_text.split('\n')
     line_spacing = 25
     y_offset = 0
     scroll_speed = 10

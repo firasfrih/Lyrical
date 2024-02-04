@@ -18,9 +18,7 @@ class Button():
 		if active:
 			screen.blit(self.text, self.text_rect)
 		else:
-			# If the button is inactive, render the text with a different color or alpha value
-			# For example, render the text with a dimmer color to indicate that it's inactive
-			dimmer_color = (150, 150, 150)  # Example of a dimmer color
+			dimmer_color = (150, 150, 150)
 			dimmed_text = self.font.render(self.text_input, True, dimmer_color)
 			screen.blit(dimmed_text, self.text_rect)
 
