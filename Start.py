@@ -39,9 +39,9 @@ def Start_app():
 
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if SUBMIT_BUTTON.checkForInput(pygame.mouse.get_pos()):
-                    if TEXT_BOX.text:  # Check if the text box is not empty
+                    if TEXT_BOX.text:
                         Button_sound_sfx.play()
-                        submit(TEXT_BOX.text)
+                        submit(TEXT_BOX.text , SCREEN)
 
                 elif QUIT_BUTTON.checkForInput(pygame.mouse.get_pos()):
                     Quit_sound_sfx.play()

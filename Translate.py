@@ -6,7 +6,7 @@ from Loading_bar import loading_bar_simulation
 def translate_lyrics(text, target_lang):
     print(target_lang)
     url = 'https://api-free.deepl.com/v2/translate'
-    auth_key = 'API_KEY_HERE'  # Replace 'API_KEY_HERE' with actual API key
+    auth_key = 'MY_API_KEY'  # Replace 'API_KEY_HERE' with actual API key
     params = {
         'auth_key': auth_key,
         'text': text,
