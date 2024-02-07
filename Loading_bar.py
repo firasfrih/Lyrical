@@ -12,7 +12,6 @@ def display_upload_message():
 	SCREEN.blit(UPLOAD_message, UPLOAD_message_rect)
 	pygame.display.update()
 
-# function to simulate loading bar to add to the main.py file in function select() while uploading is true
 def loading_bar_simulation():
 	loading_bar = pygame.Rect(0, 0, 0, 0)
 	loading_bar.w = 0

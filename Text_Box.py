@@ -4,7 +4,7 @@ class InputBox:
     def __init__(self, background_image, position , font, base_color, hovering_color):
         self.background_image = background_image
         self.position = position
-        self.text = ""  # Initial text is empty
+        self.text = ""
         self.font = pygame.font.Font(None, 50) 
         self.active = False  # Whether the textbox is currently active for typing
         self.font = font

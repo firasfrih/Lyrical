@@ -12,7 +12,6 @@ def submit(song_title , SCREEN):
         print("Song not found")
         display_popup("Song not found. Please enter a valid title.",SCREEN)
         return 
-        #sys.exit()
     else:
         print("Song found")
         display_lyrics(song.lyrics)
